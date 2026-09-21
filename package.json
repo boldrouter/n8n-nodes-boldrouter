@@ -1,0 +1,64 @@
+{
+	"name": "n8n-nodes-boldrouter",
+	"version": "0.1.0",
+	"description": "n8n community node: BoldRouter Chat Model. Use 129+ models from 26+ providers with automatic routing and failover as the language model for AI Agents and chains.",
+	"license": "MIT",
+	"homepage": "https://boldrouter.com",
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"boldrouter",
+		"ai",
+		"llm",
+		"chat-model",
+		"openai-compatible",
+		"router",
+		"gateway"
+	],
+	"author": {
+		"name": "GentleBulldozer (GentleDozer on X)",
+		"email": "support@boldrouter.com",
+		"url": "https://x.com/GentleDozer"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/boldrouter/n8n-nodes-boldrouter.git"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"aiNodeSdkVersion": 1,
+		"strict": true,
+		"credentials": [
+			"dist/credentials/BoldRouterApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/BoldRouterChatModel/BoldRouterChatModel.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "*",
+		"eslint": "9.32.0",
+		"prettier": "3.6.2",
+		"release-it": "^19.0.4",
+		"typescript": "5.9.2"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*",
+		"@n8n/ai-node-sdk": "*"
+	},
+	"engines": {
+		"node": ">=20.15.0"
+	}
+}
