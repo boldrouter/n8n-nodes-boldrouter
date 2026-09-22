@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-boldrouter",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node: BoldRouter Chat Model. Use 129+ models from 26+ providers with automatic routing and failover as the language model for AI Agents and chains.",
 	"license": "MIT",
 	"homepage": "https://boldrouter.com",
