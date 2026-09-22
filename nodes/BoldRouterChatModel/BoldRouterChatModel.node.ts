@@ -34,7 +34,7 @@ type NodeOptions = {
 };
 
 type ModelsResponse = {
-	data?: Array<{ id?: string; name?: string }>;
+	data?: Array<{ id?: string; display_name?: string; kind?: string }>;
 };
 
 const DEFAULT_BASE_URL = 'https://boldrouter.com/v1';
@@ -294,12 +294,22 @@ export class BoldRouterChatModel implements INodeType {
 					},
 				)) as ModelsResponse;
 
+				// The catalog also serves embedding, audio and translation models. None of
+				// them can answer a chat completion, so they must not reach this dropdown.
 				const models = (response.data ?? [])
-					.filter((model) => typeof model.id === 'string' && model.id.length > 0)
+					.filter(
+						(model) =>
+							typeof model.id === 'string' &&
+							model.id.length > 0 &&
+							(model.kind ?? 'chat') === 'chat',
+					)
 					.map((model) => ({
 						name: model.id as string,
 						value: model.id as string,
-						description: model.name && model.name !== model.id ? model.name : undefined,
+						description:
+							model.display_name && model.display_name !== model.id
+								? model.display_name
+								: undefined,
 					}));
 
 				// Surface the auto-router IDs first, then everything else alphabetically.
