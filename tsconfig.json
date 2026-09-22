@@ -16,6 +16,8 @@
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
 		"incremental": true,
+		// Keep the build cache out of dist/ - `files: ["dist"]` would ship it to npm.
+		"tsBuildInfoFile": "./node_modules/.cache/n8n-node.tsbuildinfo",
 		"declaration": true,
 		"sourceMap": true,
 		"skipLibCheck": true,
