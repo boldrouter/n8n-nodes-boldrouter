@@ -60,7 +60,7 @@ export class BoldRouterChatModel implements INodeType {
 			name: 'BoldRouter Chat Model',
 		},
 		codex: {
-			categories: ['AI'],
+			categories: ['Utility'],
 			subcategories: {
 				AI: ['Language Models', 'Root Nodes'],
 				'Language Models': ['Chat Models (Recommended)'],
