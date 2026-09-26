@@ -1,0 +1,35 @@
+# Blocks commits whose author or committer email is not an approved project identity.
+# Checks email patterns only. Pair with branch protection on main ("require status checks").
+
+name: Commit identity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify author and committer emails
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            RANGE="${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+          elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            RANGE="${{ github.event.before }}..${{ github.sha }}"
+          else
+            RANGE="${{ github.sha }}"
+          fi
+          bad=$(git log --format='%h %ae %ce' $RANGE | awk '
+            { ok=1; for (i=2;i<=3;i++) if ($i !~ /@users\.noreply\.github\.com$/ && $i != "support@boldrouter.com") ok=0; if (!ok) print }')
+          if [ -n "$bad" ]; then
+            echo "Commits with non-approved identities:" >&2
+            echo "$bad" >&2
+            echo "Use a GitHub no-reply address or support@boldrouter.com." >&2
+            exit 1
+          fi
+          echo "All commit identities approved."
